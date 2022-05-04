@@ -2,14 +2,12 @@ import hljs from "highlight.js";
 import "highlight.js/styles/hybrid.css";
 
 function render() {
-  const comments: NodeListOf<Element> = document.querySelectorAll(
-    ".TaskStoryFeed .BlockStoryStructure-block .TruncatedRichText .RichText"
-  );
+  const comments: NodeListOf<Element> = document.querySelectorAll(".RichText");
   comments.forEach((c) => {
     c.innerHTML = c.innerHTML.replace(
       /```(.*?)<br>(.*?)```/g,
-      (all, lang, src) => {
-        const adjustedSrc = src
+      (_all: string, lang: string | undefined, src: string) => {
+        const fixedSrc = src
           .replace(/<br>/g, "\n")
           .replace(/<code>|<\/code>/g, "")
           .replace(/&lt;/g, "<")
@@ -19,12 +17,17 @@ function render() {
           .replace(/&amp;/g, "&");
 
         let highlightedSrc;
-        if (lang && hljs.listLanguages().includes(lang.toLowerCase().trim())) {
-          highlightedSrc = hljs.highlight(adjustedSrc, {
-            language: lang.toLowerCase().trim(),
-          }).value;
+        if (!lang) {
+          highlightedSrc = hljs.highlightAuto(fixedSrc).value;
         } else {
-          highlightedSrc = hljs.highlightAuto(adjustedSrc).value;
+          const fixedLang = lang.toLowerCase().trim();
+          if (hljs.listLanguages().includes(fixedLang)) {
+            highlightedSrc = hljs.highlight(fixedSrc, {
+              language: lang.toLowerCase().trim(),
+            }).value;
+          } else {
+            highlightedSrc = hljs.highlightAuto(fixedSrc).value;
+          }
         }
         return `<pre><code class="hljs">${highlightedSrc}</code></pre>`;
       }
