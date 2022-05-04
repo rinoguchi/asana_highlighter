@@ -1,6 +1,6 @@
 # asana_highlighter
 
-Asana のソースコードをハイライトする Chrome 拡張
+Asana のソースコードブロックを highlight.js でハイライトするだけの Chrome 拡張
 
 ## 環境構築
 
