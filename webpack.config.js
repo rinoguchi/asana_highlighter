@@ -11,7 +11,6 @@ module.exports = {
   mode: "development",
   context: __dirname + "/src",
   entry: {
-    background: "./background.ts",
     highlighter: "./highlighter.ts",
   },
   output: {
@@ -42,11 +41,6 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "icons", to: "icons" },
-        {
-          from: "background.html",
-          to: "background.html",
-          transform: transformFile,
-        },
         {
           from: "manifest.json",
           to: "manifest.json",

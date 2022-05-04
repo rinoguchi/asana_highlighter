@@ -2,7 +2,6 @@ import hljs from "highlight.js";
 import "highlight.js/styles/hybrid.css";
 
 function render() {
-  console.log("render called.");
   const comments: NodeListOf<Element> = document.querySelectorAll(
     ".TaskStoryFeed .BlockStoryStructure-block .TruncatedRichText .RichText"
   );
@@ -33,5 +32,4 @@ function render() {
   });
 }
 
-render();
-// setInterval(render, 3000);
+setInterval(render, 1000);
