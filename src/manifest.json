@@ -1,6 +1,6 @@
 {
   "name": "asana highlighter",
-  "description": "highlight the source code on asana pages",
+  "description": "highlight the source code block on Asana pages",
   "version": "1.0.0",
   "manifest_version": 3,
   "icons": {
