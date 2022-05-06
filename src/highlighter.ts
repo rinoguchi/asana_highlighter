@@ -4,17 +4,18 @@ import "highlight.js/styles/hybrid.css";
 function render() {
   const comments: NodeListOf<Element> = document.querySelectorAll(".RichText");
   comments.forEach((c) => {
-    c.innerHTML = c.innerHTML.replace(
+    const newInnerHTML = c.innerHTML.replace(
       /```(.*?)<br>(.*?)```/g,
       (_all: string, lang: string | undefined, src: string) => {
         const fixedSrc = src
           .replace(/<br>/g, "\n")
           .replace(/<code>|<\/code>/g, "")
+          .replace(/<strong>|<\/strong>/g, "")
           .replace(/&lt;/g, "<")
           .replace(/&gt;/g, ">")
           .replace(/&quot;/g, '"')
           .replace(/&amp;/g, "&")
-          .replace(/&amp;/g, "&");
+          .replace(/&nbsp;/g, " ");
 
         let highlightedSrc;
         if (!lang) {
@@ -32,6 +33,9 @@ function render() {
         return `<pre><code class="hljs">${highlightedSrc}</code></pre>`;
       }
     );
+    if (newInnerHTML !== c.innerHTML) {
+      c.innerHTML = newInnerHTML;
+    }
   });
 }
 
