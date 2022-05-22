@@ -11,8 +11,7 @@ function render() {
       (_all: string, lang: string | undefined, src: string) => {
         const fixedSrc = src
           .replace(/<br>/g, "\n")
-          .replace(/<code>|<\/code>/g, "")
-          .replace(/<strong>|<\/strong>/g, "")
+          .replace(/<[^<>]+>|<\/[^<>]+>/g, "") // htmlタグは全部置換
           .replace(/&lt;/g, "<")
           .replace(/&gt;/g, ">")
           .replace(/&quot;/g, '"')
